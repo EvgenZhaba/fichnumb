@@ -19,7 +19,7 @@ def printhelp():
     "\tПосле догадки текущий ход заканчивается и начинается следующий ход игрока.",
     "Цель - найти номер загаданного числа за наименьшее количество ходов.",
     ""
-    "Автор игры и реализация: EvgenZhaba (связь через telegram). Версия: 0.4beta",
+    "Автор игры и реализация: EvgenZhaba (связь через telegram). Версия: 0.5beta",
     "В этой версии есть:",
     "-debug - режим отладки, показывающий перед игрой: все числа и загаданное число.",
     "-help  - режим помощи, показывает информацию по возможным значениям чисел.",
@@ -50,16 +50,17 @@ def inpfunc(max_len_list, min_digit, max_digit, text):
 
 def bullsandcows(n1, n2):
     bulls, cows = 0, 0
-    numb = [True for _ in range(len_numb)]
+    bulls_same = [True for _ in range(len_numb)]
+    cows_same = [True for _ in range(len_numb)]
     for i in range(len_numb):
         if (n1[i] == n2[i]):
             bulls += 1
-            numb[i] = False
-            continue
+            bulls_same[i] = False
+    for i in range(len_numb):
         for j in range(len_numb):
-            if (n1[i] == n2[j]) and numb[j]:
+            if (n1[i] == n2[j]) and bulls_same[i] and bulls_same[j] and cows_same[j]:
                 cows += 1
-                numb[j] = False
+                cows_same[j] = False
                 break
     return bulls, cows
 
